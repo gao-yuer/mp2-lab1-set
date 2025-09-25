@@ -17,16 +17,16 @@ typedef unsigned int TELEM;
 class TBitField
 {
 private:
-  int  BitLen; // длина битового поля - макс. к-во битов
+  int  bitLen; // длина битового поля - макс. к-во битов
   TELEM *pMem; // память для представления битового поля
-  int  MemLen; // к-во эл-тов Мем для представления бит.поля
+  int  memLen; // к-во эл-тов Мем для представления бит.поля
 
   // методы реализации
   int   GetMemIndex(const int n) const; // индекс в pМем для бита n       (#О2)
   TELEM GetMemMask (const int n) const; // битовая маска для бита n       (#О3)
 public:
   TBitField(); // по умолчанию
-  TBitField(int BitLen_, TELEM *pMem_, int MempLen_); //инициализатор
+  TBitField(int bitLen_, TELEM *pMem_, int mempLen_); //инициализатор
   TBitField(int len);                // создание битового поля заданной длины (#О1)
   TBitField(const TBitField &bf);    //                                   (#П1)
   ~TBitField();                      //                                    (#С)
