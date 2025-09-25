@@ -169,21 +169,20 @@ TBitField TBitField::operator&(const TBitField& bf) // операция "и"
     result.pMem[i] = pMem[i] & bf.pMem[i];
   }
 
-  // Остальная часть результата остается нулевой (по умолчанию)
   return result;
 }
 
 TBitField TBitField::operator~(void) // отрицание
 {
-  TBitField result(bitLen);  // Создание результата той же длины
+  TBitField result(bitLen); 
 
-  for (int i = 0; i < memLen; i++)  // Цикл по всем элементам памяти
-    result.pMem[i] = ~pMem[i];  // Побитовая инверсия каждого элемента
+  for (int i = 0; i < memLen; i++)  
+    result.pMem[i] = ~pMem[i];  
 
-  if (memLen > 0)  // Если есть элементы памяти
+  if (memLen > 0)  
   {
     int extraBits = bitLen % (sizeof(TELEM) * 8);  // Вычисление лишних битов в последнем элементе
-    if (extraBits > 0)  // Если есть лишние биты
+    if (extraBits > 0)  
     {
       TELEM mask = (1 << extraBits) - 1;  // Создание маски для значимых битов
       result.pMem[memLen - 1] &= mask;  // Обнуление неиспользуемых битов
@@ -197,23 +196,23 @@ TBitField TBitField::operator~(void) // отрицание
 
 istream &operator>>(istream &istr, TBitField &bf) // ввод
 {
-  for (int i = 0; i < bf.bitLen; i++)  // Цикл по всем битам поля
+  for (int i = 0; i < bf.bitLen; i++)  
   {
     int bit;
-    istr >> bit;  // Чтение значения бита из потока
-    if (bit == 1)  // Если прочитали 1
-      bf.SetBit(i);  // Устанавливаем бит
-    else if (bit == 0)  // Если прочитали 0
-      bf.ClrBit(i);  // Сбрасываем бит
-    else  // Если что-то кроме 0 или 1
-      throw invalid_argument("Некорректное значение бита");  // Ошибка
+    istr >> bit; 
+    if (bit == 1)  
+      bf.SetBit(i); 
+    else if (bit == 0)  
+      bf.ClrBit(i);  
+    else  
+      throw invalid_argument("Некорректное значение бита");  
   }
-  return istr;  // Возврат потока для цепочки операций
+  return istr; 
 }
 
 ostream &operator<<(ostream &ostr, const TBitField &bf) // вывод
 {
-  for (int i = 0; i < bf.bitLen; i++)  // Цикл по всем битам поля
-    ostr << bf.GetBit(i) << " ";  // Вывод значения бита и пробела
-  return ostr;  // Возврат потока для цепочки операций
+  for (int i = 0; i < bf.bitLen; i++)  
+    ostr << bf.GetBit(i) << " ";  
+  return ostr;  
 }
